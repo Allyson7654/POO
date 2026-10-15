@@ -1,6 +1,5 @@
 public interface Ligavel {
-    void  ligar() ;
-    void  desligar() ;
-    boolean isLigado() ;
-
+    void ligar();
+    void desligar();
+    boolean isLigado();
 }

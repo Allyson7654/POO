@@ -3,35 +3,34 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Casa {
-    private List<Dispositivo> dispositivos;
+    private List<Dispositivo> itens;
     private static Scanner scanner = new Scanner(System.in);
 
     public Casa() {
-        this.dispositivos = new ArrayList<>();
+        this.itens = new ArrayList<>();
     }
 
-
-    public void cadastrar(Dispositivo d) {
-        dispositivos.add(d);
-        System.out.println(d.getNome() + " cadastrado com sucesso!");
+    public void cadastrar(Dispositivo dispositivo) {
+        itens.add(dispositivo);
+        System.out.println(dispositivo.getNome() + " cadastrado com sucesso!");
     }
 
     public Dispositivo buscar(int indice) {
-        if (indice >= 0 && indice < dispositivos.size()) {
-            return dispositivos.get(indice);
+        if (indice >= 0 && indice < itens.size()) {
+            return itens.get(indice);
         }
         return null;
     }
 
     public void listar() {
-        System.out.println("\n--- Dispositivos na Casa ---");
-        if (dispositivos.isEmpty()) {
+        System.out.println("\n--- Lista de Dispositivos Cadastrados ---");
+        if (itens.isEmpty()) {
             System.out.println("Nenhum dispositivo cadastrado.");
             return;
         }
 
-        for (int i = 0; i < dispositivos.size(); i++) {
-            Dispositivo d = dispositivos.get(i);
+        for (int i = 0; i < itens.size(); i++) {
+            Dispositivo d = itens.get(i);
             String estado = "N/A";
             if (d instanceof Ligavel) {
                 estado = ((Ligavel) d).isLigado() ? "Ligado" : "Desligado";
@@ -42,19 +41,19 @@ public class Casa {
     }
 
     public double getConsumoAtual() {
-        double consumo = 0;
-        for (Dispositivo d : dispositivos) {
+        double potenciaTotal = 0;
+        for (Dispositivo d : itens) {
             if (d instanceof Ligavel && ((Ligavel) d).isLigado()) {
-                consumo += d.getPotenciaWatts();
+                potenciaTotal += d.getPotenciaWatts();
             }
         }
-        return consumo;
+        return potenciaTotal;
     }
 
     public void listarConectados() {
         System.out.println("\n--- Dispositivos Conectados ao Wi-Fi ---");
         boolean encontrou = false;
-        for (Dispositivo d : dispositivos) {
+        for (Dispositivo d : itens) {
             if (d instanceof Conectavel && ((Conectavel) d).isConectado()) {
                 System.out.println("- " + d.getNome() + " (" + d.getTipo() + ")");
                 encontrou = true;
@@ -127,7 +126,7 @@ public class Casa {
                         if (acao == 1) l.ligar();
                         else if (acao == 2) l.desligar();
                     } else if (dispL != null) {
-                        System.out.println("Este dispositivo não pode ser ligado/desligado.");
+                        System.out.println("Este dispositivo não possui capacidade de ligar/desligar.");
                     } else {
                         System.out.println("Dispositivo não encontrado.");
                     }
@@ -168,7 +167,7 @@ public class Casa {
                     break;
 
                 case 6:
-                    System.out.printf("\nConsumo total atual: %.2f Watts\n", minhaCasa.getConsumoAtual());
+                    System.out.printf("\nConsumo total atual: %.2f Watts (apenas dispositivos ligados)\n", minhaCasa.getConsumoAtual());
                     break;
 
                 case 7:
@@ -176,7 +175,7 @@ public class Casa {
                     break;
 
                 case 8:
-                    System.out.println("Saindo do sistema...");
+                    System.out.println("Encerrando o sistema...");
                     break;
 
                 default:
