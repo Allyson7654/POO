@@ -2,7 +2,7 @@ package br.ifma.estoque.app;
 
 import br.ifma.estoque.excecao.PersistenciaException;
 import br.ifma.estoque.modelo.Produto;
-import br.ifma.estoque.br.ifma.estoque.persistencia.ArquivoEstoque;
+import br.ifma.estoque.persistencia.ArquivoEstoque;
 
 import java.util.Arrays;
 import java.util.List;

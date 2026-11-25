@@ -1,4 +1,4 @@
-package br.ifma.estoque.br.ifma.estoque.persistencia;
+package br.ifma.estoque.persistencia;
 
 import br.ifma.estoque.excecao.PersistenciaException;
 import br.ifma.estoque.modelo.Produto;
